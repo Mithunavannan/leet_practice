@@ -1,0 +1,22 @@
+class Solution(object):
+    def updateMatrix(self, mat):
+        if not mat:
+            return mat
+       
+        rows, cols = len(mat), len(mat[0])
+        queue = []
+
+        for i in range(rows):
+            for j in range(cols):
+                if mat[i][j] == 0:
+                    queue.append((i, j))
+                else:
+                    mat[i][j] = float('inf')
+        while queue:
+            x, y = queue.pop(0)
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                new_x, new_y = x + dx, y + dy
+                if 0 <= new_x < rows and 0 <= new_y < cols and mat[new_x][new_y] > mat[x][y] + 1:
+                    mat[new_x][new_y] = mat[x][y]+1
+                    queue.append((new_x, new_y))
+        return mat
