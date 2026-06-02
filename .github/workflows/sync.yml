@@ -1,0 +1,16 @@
+name: Sync LeetCode
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *" # Runs automatically every day at 8:00 AM UTC
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Sync Action
+        uses: joshcai/leetcode-sync@v1.5
+        with:
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-branch: "main" # CHANGE THIS if your branch name from Step 4 is master
